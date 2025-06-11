@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <button id="addButton">
+                <i class="fa-solid fa-plus"></i>
+                <span>Add</span>
+            </button>
+            <div class="header-inactive">
+                <input id="inactive" type="radio" name="status"> <label for="inactive">Show
+                    Inactive</label>
+            </div>
+        </div>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Sr. No.</th>
+                    <th>ID</th>
+                    <th>Location Name</th>
+                    <th>Location Descriptions</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody id="table-body">
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>Neighborhood Health</td>
+                    <td>Lorem Ipsum</td>
+                    <td>
+                        <div class="action">
+                            <div class="action-view">
+                                <i class="fa-solid fa-eye"></i><span> View</span>
+                            </div>
+                            <div class="action-edit">
+                                <i class="fa-solid fa-pen-to-square"></i><span>
+                                    Edit</span>
+                            </div>
+                            <div class="action-delete">
+                                <i class="fa-solid fa-circle-minus"></i><span> Delete</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+    </div>
+
+
+    <div id="formModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="recordForm">
+                <h3 id="formTitle">Add Record</h3>
+                <input type="hidden" id="recordId">
+
+                <div class="form-loc">
+                    <label>Location Name</label>
+                    <input type="text" id="locationName" required>
+                </div>
+
+                <div class="form-des">
+                    <label>Location Description</label>
+                    <textarea id="locationDescription" required></textarea>
+                </div>
+
+                <div class="status">
+                    <span>Status:</span>
+
+                    <div class="status-options">
+                        <div class="status-active">
+                            <input id="active" type="radio" name="status" value="active" checked> <label
+                                for="active">Active</label>
+                        </div>
+                        <div class="status-inactive">
+                            <input id="inactiveRadio" type="radio" name="status" value="inactive"> <label
+                                for="inactiveRadio">Inactive</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" id="submitBtn">
+                    <span>Add</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Are you sure you want to delete?</p>
+            <div class="confirmation-buttons">
+                <button id="confirmDelete">Yes</button>
+                <button id="cancelDelete">No</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
