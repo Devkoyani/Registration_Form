@@ -7,8 +7,26 @@ document.addEventListener("DOMContentLoaded", function () {
   addButton.addEventListener("click", openAddModal);
 
   function openAddModal() {
+    document.getElementById("formTitle").textContent = "Add Record";
+
+    document.getElementById("recordId").value = "";
+    document.getElementById("locationName").value = "";
+    document.getElementById("locationDescription").value = "";
+    document.getElementById("active").checked = true;
+
+    document.getElementById("locationName").readOnly = false;
+    document.getElementById("locationDescription").readOnly = false;
+    document.querySelectorAll('input[name="status"]').forEach((radio) => {
+      radio.disabled = false;
+    });
+
+    document.getElementById("submitBtn").querySelector("span").textContent =
+      "Add";
+    document.getElementById("submitBtn").style.display = "block";
+
     formModal.style.display = "block";
   }
+
 
   // Close Button Functionality
   const closeButtons = document.querySelectorAll(".close");
@@ -78,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
     filteredRecords.forEach((record, index) => {
       const row = document.createElement("tr");
 
-        row.innerHTML = `
+      row.innerHTML = `
                         <td>${index + 1}</td>
                         <td>${index + 1}</td>
                         <td>${record.name}</td>
@@ -102,5 +120,58 @@ document.addEventListener("DOMContentLoaded", function () {
 
       tableBody.appendChild(row);
     });
+
+    document.querySelectorAll(".action-view").forEach((button) => {
+      button.addEventListener("click", () => {
+        const id = button.getAttribute("data-id");
+        const record = records.find((r) => r.id == id);
+        openEditModal(record, true);
+      });
+    });
+
+    document.querySelectorAll(".action-edit").forEach((button) => {
+      button.addEventListener("click", () => {
+        const id = button.getAttribute("data-id");
+        const record = records.find((r) => r.id == id);
+        openEditModal(record);
+      });
+    });
+  }
+
+  
+  // 3. On click of Edit or View button, it should open a popup with pre-filled data.
+  function openEditModal(record, viewOnly = false) {
+    document.getElementById("formTitle").textContent = viewOnly
+      ? "View Record"
+      : "Edit Record";
+    document.getElementById("submitBtn").querySelector("span").textContent =
+      "Update";
+    document.getElementById("recordId").value = record.id;
+    document.getElementById("locationName").value = record.name;
+    document.getElementById("locationDescription").value = record.description;
+
+    if (record.status === "active") {
+      document.getElementById("active").checked = true;
+    } else {
+      document.getElementById("inactiveRadio").checked = true;
+    }
+
+    if (viewOnly) {
+      document.getElementById("locationName").readOnly = true;
+      document.getElementById("locationDescription").readOnly = true;
+      document.querySelectorAll('input[name="status"]').forEach((radio) => {
+        radio.disabled = true;
+      });
+      document.getElementById("submitBtn").style.display = "none";
+    } else {
+      document.getElementById("locationName").readOnly = false;
+      document.getElementById("locationDescription").readOnly = false;
+      document.querySelectorAll('input[name="status"]').forEach((radio) => {
+        radio.disabled = false;
+      });
+      document.getElementById("submitBtn").style.display = "block";
+    }
+
+    formModal.style.display = "block";
   }
 });
