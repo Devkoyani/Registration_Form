@@ -46,14 +46,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // Filter functionality
+  const statusFilter = document.getElementById("statusFilter");
+  statusFilter.addEventListener("change", renderTable);
+
 
   // 2. On submission of location record form data, it should appear in the location table list.
   const recordForm = document.getElementById("recordForm");
-  const showInactiveCheckbox = document.getElementById("inactive");
   const tableBody = document.getElementById("table-body");
-
+  
   recordForm.addEventListener("submit", handleFormSubmit);
-  showInactiveCheckbox.addEventListener("change", renderTable);
 
   let records = [];
   renderTable();
@@ -65,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const name = document.getElementById("locationName").value;
     const description = document.getElementById("locationDescription").value;
     const status = document.querySelector('input[name="status"]:checked').value;
-
+    
     const record = {
       id: id ? parseInt(id) : Date.now(),
       name,
@@ -86,19 +88,28 @@ document.addEventListener("DOMContentLoaded", function () {
     formModal.style.display = "none";
   }
 
+
+  //  Rendering the table with records
   function renderTable() {
     tableBody.innerHTML = "";
 
-    const filteredRecords = showInactiveCheckbox.checked
-      ? records
-      : records.filter((record) => record.status === "active");
+    const filterValue = statusFilter.value;
+    const filteredRecords = records.filter(record => {
+
+        if (filterValue === "all") return true;
+        return record.status === filterValue;
+    });
 
     filteredRecords.forEach((record, index) => {
       const row = document.createElement("tr");
 
+       if (record.status === "inactive") {
+            row.classList.add("inactive-row");
+        }
+
       row.innerHTML = `
                         <td>${index + 1}</td>
-                        <td>${index + 1}</td>
+                        <td>${record.id}</td>
                         <td>${record.name}</td>
                         <td>${record.description}</td>
                         <td>
