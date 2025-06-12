@@ -136,6 +136,13 @@ document.addEventListener("DOMContentLoaded", function () {
         openEditModal(record);
       });
     });
+
+    document.querySelectorAll(".action-delete").forEach((button) => {
+      button.addEventListener("click", () => {
+        const id = button.getAttribute("data-id");
+        openDeleteModal(id);
+      });
+    });
   }
 
   
@@ -173,5 +180,32 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     formModal.style.display = "block";
+  }
+
+
+  // 4. On click of Delete button, it should open a confirmation modal.
+  let currentRecordId = null;
+
+  const confirmDeleteBtn = document.getElementById("confirmDelete");
+  const cancelDeleteBtn = document.getElementById("cancelDelete");
+
+  confirmDeleteBtn.addEventListener("click", confirmDelete);
+  cancelDeleteBtn.addEventListener("click", cancelDelete);
+
+  function openDeleteModal(id) {
+    currentRecordId = id;
+    deleteModal.style.display = "block";
+  }
+
+  function confirmDelete() {
+    records = records.filter((record) => record.id != currentRecordId);
+    renderTable();
+    deleteModal.style.display = "none";
+    currentRecordId = null;
+  }
+
+  function cancelDelete() {
+    deleteModal.style.display = "none";
+    currentRecordId = null;
   }
 });
