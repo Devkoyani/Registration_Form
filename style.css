@@ -37,7 +37,7 @@ body {
   margin-right: 10px;
 }
 
-.header-inactive {
+/* .header-inactive {
   display: flex;
   gap: 5px;
 }
@@ -45,6 +45,20 @@ body {
 .header-inactive input {
   margin-bottom: 2px;
   cursor: pointer;
+} */
+
+.filter select {
+    padding: 8px 12px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background-color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.filter select:focus {
+    outline: none;
+    border-color: rgb(28, 114, 220);
 }
 
 table {
