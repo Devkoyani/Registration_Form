@@ -50,6 +50,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const statusFilter = document.getElementById("statusFilter");
   statusFilter.addEventListener("change", renderTable);
 
+  // Search functionality
+  const searchInput = document.getElementById("searchInput");
+  searchInput.addEventListener("input", renderTable);
+
 
   // 2. On submission of location record form data, it should appear in the location table list.
   const recordForm = document.getElementById("recordForm");
@@ -94,10 +98,21 @@ document.addEventListener("DOMContentLoaded", function () {
     tableBody.innerHTML = "";
 
     const filterValue = statusFilter.value;
+    const searchValue = searchInput.value.toLowerCase();
+
     const filteredRecords = records.filter(record => {
 
-        if (filterValue === "all") return true;
-        return record.status === filterValue;
+        if (filterValue !== "all" && record.status !== filterValue) {
+            return false;
+        }
+        
+        if (searchValue && 
+            !record.name.toLowerCase().includes(searchValue) && 
+            !record.description.toLowerCase().includes(searchValue)) {
+            return false;
+        }
+        
+        return true;
     });
 
     filteredRecords.forEach((record, index) => {
