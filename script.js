@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Pagination variables
-  const recordsPerPage = 10;
+  const recordsPerPage = 3;
   let currentPage = 1;
   const prevPageButton = document.getElementById("prevPage");
   const nextPageButton = document.getElementById("nextPage");
